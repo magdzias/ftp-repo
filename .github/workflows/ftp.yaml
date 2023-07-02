@@ -1,0 +1,21 @@
+name: Deploy on FTP
+on: 
+  push: 
+    branches: 
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+jobs: 
+  deploy: 
+    runs-on: ubuntu-latest
+    steps: 
+    - uses: actions/checkout@v1
+    - name: Deploy WP theme
+      uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+      with:
+        server: "s1.ct8.pl"
+        server-dir: "./domains/af-ct8.ct8.pl/public_html/wp-content/themes/moj_pierwszy_szablon/"
+        username: ${{secrets.FTP_USERNAME}}
+        password: ${{secrets.FTP_PASSWORD}}
